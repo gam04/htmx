@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link rel="stylesheet" href="main.css">
+    <script src="https://unpkg.com/htmx.org@2.0.3"
+        integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq"
+        crossorigin="anonymous"></script>
+    <title>HTMX POC</title>
+</head>
+
+<body>
+    <main class="container">
+        <h1>HTMX TODO</h1>
+        <div class="container form">
+            <form hx-validate="true">
+                <div class="grid">
+                    <label for="taskname">
+                        Task name
+                        <input type="text" id="taskname" name="taskname" placeholder="Coding" required>
+                    </label>
+                    <label for="date">
+                        Date
+                        <input type="date" id="date" name="date" placeholder="01-01-2023" required>
+                    </label>
+                </div>
+                <label for="description">
+                    Description
+                    <textarea type="text" id="description" name="description" placeholder="Description"
+                        required></textarea>
+                </label>
+                <button id="create-button" hx-validate="true" hx-post="create.php" hx-swap="none">Submit</button>
+            </form>
+        </div>
+
+        <article class="todo-article">
+            <div id="todo-trigger" hx-trigger="load, click from:#create-button, htmx:afterOnLoad from:#delete-button"
+                hx-get="list.php" hx-target="#todo-list">
+            </div>
+            <div id="todo-list">
+            </div>
+        </article>
+
+        <div class="grid">
+            <button id="delete-button" class="secondary" hx-swap="none" hx-confirm="delete the list?"
+                hx-post="delete-list.php">Eliminar
+            </button>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </main>
+</body>
+
+</html>
